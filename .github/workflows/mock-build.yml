@@ -7,24 +7,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: setup sshkey
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: trigger target workflow
+        uses: actions/github-script@v6
         with:
-          ssh-private-key: ${{ secrets.ACTION_PRIVATE_SSH_KEY }}
-
-      - name: Checkout target repository
-        uses: actions/checkout@v3
-        with:
-          repository: 'LiQunXia/liqunxia.github.io' # 目标仓库
-
-      - name: update target repo and push
-        run: |
-          pwd
-          cd liqunxia.github.io
-          pwd
-        #   echo "触发一次pages部署" >> docs/index.md
-        #   git config user.name "github-actions[bot]"
-        #   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        #   git add .
-        #   git commit -m "update docs"
-        #   git push origin main
+          github-token: ${{secrets.PAT_TOKEN}}
+          script: |
+            const result = await github.rest.repos.createDispatchEvent({
+            owner: 'LiQunXia',
+            repo: 'liqun.xia.github.io',
+            event_type: 'test_upload'
+            })
+            console.log(result);
