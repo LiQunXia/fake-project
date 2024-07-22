@@ -7,16 +7,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout target repository
         uses: actions/checkout@v3
         with:
-              repository: 'LiQunXia/liqunxia.github.io'  # 目标仓库
+          repository: 'LiQunXia/liqunxia.github.io' # 目标仓库
 
-    
       - name: update target repo and push
         run: |
-          cd liqunxia.github.io
+          pwd
           echo "触发一次pages部署" >> docs/index.md
-
-
