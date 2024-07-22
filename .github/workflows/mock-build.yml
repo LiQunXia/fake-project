@@ -16,3 +16,8 @@ jobs:
         run: |
           pwd
           echo "触发一次pages部署" >> docs/index.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "update docs"
+          git push origin main
